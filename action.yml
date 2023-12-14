@@ -1,14 +1,20 @@
-name: Template action
-description: Does not do anything, it's a template
+name: List template repository instances
+description: |
+  This action returns the lists of repositories that used the provided template as a template repository.
 inputs:
-  example:
-    description: An example input
-    required: true
+  github-token:
+    description: |
+      The token used to authenticate in GitHub api calls. It should be a PAT because queries are made against the whole
+      organization.
+    required:
+      true
+  template-repository:
+    description: The template repository to list instances of. Defaults to the current repository.
+    required: false
+    default: ${{ github.repository }}
 outputs:
-  example-output:
-    description: An example output
+  instances:
+    description: A JSON array of all the repositories instantiating the provided template.
 runs:
   using: "docker"
   image: Dockerfile
-  args:
-    - ${{ inputs.example }}
